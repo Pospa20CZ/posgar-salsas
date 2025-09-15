@@ -23,11 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="cs">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <header style={{padding: '2rem 0', textAlign: 'center', background: '#f8f8f8', borderBottom: '1px solid #eee'}}>
+          <h1 style={{margin: 0, fontSize: '2.5rem'}}>PosGar Salsas</h1>
+          <p style={{margin: 0, fontSize: '1.2rem', color: '#666'}}>E-shop s omáčkami</p>
+        </header>
+        <main style={{minHeight: '60vh', padding: '2rem 0'}}>
+          {children}
+        </main>
+        <footer style={{padding: '1rem 0', textAlign: 'center', background: '#f8f8f8', borderTop: '1px solid #eee', color: '#888', fontSize: '0.9rem'}}>
+          &copy; {new Date().getFullYear()} PosGar Salsas &ndash; Kontakt: info@posgar.cz
+        </footer>
       </body>
     </html>
   );
