@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
@@ -10,11 +10,9 @@ export default function NavLink({ href, label }: { href: string; label: string }
   return (
     <Link
       href={href}
-      style={{
-        textDecoration: isActive ? "underline" : "none",
-        fontWeight: isActive ? "bold" : "normal",
-        color: isActive ? "#d00" : "#333",
-      }}
+      className={`text-gray-800 hover:text-blue-600 transition ${
+        isActive ? 'underline font-bold text-red-600' : ''
+      }`}
     >
       {label}
     </Link>
