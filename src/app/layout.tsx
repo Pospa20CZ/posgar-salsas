@@ -34,6 +34,8 @@ export default function RootLayout({
             <NavLink href="/" label="Home" />
             <NavLink href="/about" label="About" />
             <NavLink href="/contact" label="Contact" />
+            <NavLink href="/products" label="Products" /> {/* ← Přidáno */}
+            <NavLink href="/cart" label="Cart" /> {/* ← Přidáno */}
           </nav>
         </header>
 
