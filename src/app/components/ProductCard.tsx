@@ -1,24 +1,27 @@
-type ProductProps = {
+type Props = {
   name: string;
   description: string;
   image?: string;
+  onAddToCart?: () => void;
 };
 
-export default function ProductCard({ name, description, image }: ProductProps) {
+export default function ProductCard({ name, description, image, onAddToCart }: Props) {
   return (
-    <div className="border rounded-lg p-4 bg-white shadow">
-      {image && (
-        <img
-          src={image}
-          alt={name}
-          className="w-full h-32 object-contain mb-4"
-        />
+    <div className="border p-4 rounded shadow flex flex-col justify-between">
+      <div>
+        {image && <img src={image} alt={name} className="w-16 h-16 mb-4" />}
+        <h2 className="text-xl font-semibold">{name}</h2>
+        <p className="text-gray-600">{description}</p>
+      </div>
+
+      {onAddToCart && (
+        <button
+          onClick={onAddToCart}
+          className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+        >
+          Přidat do košíku
+        </button>
       )}
-      <h4 className="text-lg font-semibold mb-1">{name}</h4>
-      <p className="text-sm text-gray-600 mb-3">{description}</p>
-      <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
-        Do košíku
-      </button>
     </div>
   );
 }
