@@ -1,18 +1,29 @@
 'use client'
 
+import { useRouter } from "next/navigation";
 import { useCartStore } from "@/lib/store";
 import { sauces } from "@/lib/products";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
+  const router = useRouter(); // ✅ pro přesměrování
   const cart = useCartStore((state) => state.cart);
   const clearCart = useCartStore((state) => state.clearCart);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-  // Najdi produkty podle ID v košíku
   const cartItems = cart
     .map((item) => sauces.find((sauce) => sauce.id === item.id))
-    .filter(Boolean); // odstraní undefined
+    .filter(Boolean);
 
   const total = cartItems.reduce((sum, item) => sum + (item?.price || 0), 0);
+
+  const handleOrder = () => {
+  console.log("Objednávka spuštěna ✅"); // ✅ testovací výpis
+  toast.success("📦 Objednávka odeslána");
+  clearCart();
+  router.push("/confirmation");
+  };
+
 
   return (
     <main className="p-8">
@@ -27,6 +38,15 @@ export default function CartPage() {
               <h2 className="text-xl font-semibold mb-2">{item!.name}</h2>
               <p className="text-gray-600">{item!.description}</p>
               <p className="font-bold mt-2">Cena: {item!.price} Kč</p>
+              <button
+                onClick={() => {
+                  removeFromCart(item!.id);
+                  toast("❌ Odebráno z košíku");
+                }}
+                className="mt-4 text-sm text-red-600 hover:underline"
+              >
+                Odebrat z košíku
+              </button>
             </div>
           ))}
 
@@ -36,12 +56,18 @@ export default function CartPage() {
 
           <div className="text-center mt-6 space-x-4">
             <button
-              onClick={clearCart}
+              onClick={() => {
+                clearCart();
+                toast("🧹 Košík vyprázdněn");
+              }}
               className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition"
             >
               Vyprázdnit košík
             </button>
-            <button className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition">
+            <button
+              onClick={handleOrder} // ✅ objednávka
+              className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
+            >
               Objednat
             </button>
           </div>

@@ -1,12 +1,21 @@
 'use client'
 
-import ProductCard from "./../components/ProductCard";
-import { sauces } from "@/lib/products";
+import { useEffect } from "react";
+import ProductCard from "@/app/components/ProductCard";
 import { useCartStore } from "@/lib/store";
+import { useSauceStore } from "@/store/sauceStore";
+import { sauces as staticSauces } from "@/lib/products";
+import toast from "react-hot-toast";
 
 export default function ProductsPage() {
   const addToCart = useCartStore((state) => state.addToCart);
   const cart = useCartStore((state) => state.cart);
+  const sauces = useSauceStore((state) => state.sauces);
+  const setSauces = useSauceStore((state) => state.setSauces);
+
+  useEffect(() => {
+    setSauces(staticSauces);
+  }, [setSauces]);
 
   return (
     <main className="text-center">
@@ -15,10 +24,13 @@ export default function ProductsPage() {
         {sauces.map((sauce) => (
           <ProductCard
             key={sauce.id}
+            image={sauce.image}
             name={sauce.name}
             description={sauce.description}
-            image={sauce.image}
-            onAddToCart={() => addToCart({ id: sauce.id })}
+            onAddToCart={() => {
+              addToCart({ id: sauce.id });
+              toast.success("✅ Přidáno do košíku");
+            }}
           />
         ))}
       </div>

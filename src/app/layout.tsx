@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NavLink from "./components/NavLink";
 import "./globals.css";
+import { Toaster } from "react-hot-toast"; // ✅ přidáno
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,12 +35,14 @@ export default function RootLayout({
             <NavLink href="/" label="Home" />
             <NavLink href="/about" label="About" />
             <NavLink href="/contact" label="Contact" />
-            <NavLink href="/products" label="Products" /> {/* ← Přidáno */}
-            <NavLink href="/cart" label="Cart" /> {/* ← Přidáno */}
+            <NavLink href="/products" label="Products" />
+            <NavLink href="/cart" label="Cart" />
           </nav>
         </header>
 
         <main className="min-h-[60vh] py-8">{children}</main>
+
+        <Toaster position="top-right" /> {/* ✅ přidáno */}
 
         <footer className="text-center bg-[#f8f8f8] border-t border-[#eee] py-4 text-sm text-gray-500">
           &copy; {new Date().getFullYear()} PosGar Salsas &ndash; Contact: info@posgar.cz
