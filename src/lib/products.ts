@@ -1,14 +1,14 @@
 export const sauces = [
   {
-    id: 1,
+    id: "sauce-001",
     name: "Smoky Jalapeño",
-    description: "Uzený zelený jalapeňo",
+    description: "Uzený zelený jalapeño",
     price: 129,
-    image: "/jalapeno.svg", // můžeš později nahradit reálným obrázkem
+    image: "/jalapeno.svg",
     heatLevel: 3,
   },
   {
-    id: 2,
+    id: "sauce-002",
     name: "Garlic Inferno",
     description: "Česneková bomba s chilli",
     price: 149,
@@ -16,10 +16,10 @@ export const sauces = [
     heatLevel: 4,
   },
   {
-    id: 3,
+    id: "sauce-003",
     name: "Mango Madness",
     description: "Sladké mango s pálivým dozvukem",
-    price: 139,
+    price: 129,
     image: "/mango.svg",
     heatLevel: 2,
   },
