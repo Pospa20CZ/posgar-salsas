@@ -11,9 +11,9 @@ export default function Navbar() {
       <NavLink href="/products" label="🌶️ TauroSauces" />
 
       <div className="flex items-center gap-6">
-        <NavLink href="/products" label="Produkty" />
+        <NavLink href="/products" label="Products" />
         <div className="relative">
-          <NavLink href="/cart" label="Košík" />
+          <NavLink href="/cart" label="Cart" />
           {cart.length > 0 && (
             <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
               {cart.length}

@@ -45,7 +45,7 @@ export default function CartPage() {
   const total = groupedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleOrder = () => {
-    toast.success("📦 Objednávka odeslána");
+    toast.success("📦 Order placed");
     clearCart();
     router.push("/confirmation");
   };
@@ -54,10 +54,10 @@ export default function CartPage() {
     <>
       <Navbar />
       <main className="p-8">
-        <h1 className="text-3xl font-bold mb-6 text-center">🛒 Košík</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">🛒 Cart</h1>
 
         {groupedItems.length === 0 ? (
-          <p className="text-center text-gray-500">Košík je prázdný.</p>
+          <p className="text-center text-gray-500">Your cart is empty.</p>
         ) : (
           <section className="max-w-2xl mx-auto space-y-6">
             {groupedItems.map((item) => (
@@ -70,34 +70,34 @@ export default function CartPage() {
                 quantity={item.quantity}
                 onAdd={() => {
                   addToCart(item.id);
-                  toast("➕ Přidáno 1 ks");
+                  toast("➕ Added 1 item");
                 }}
                 onRemove={() => {
                   removeFromCart(item.id);
-                  toast("❌ Odebráno 1 ks");
+                  toast("❌ Removed 1 item");
                 }}
               />
             ))}
 
             <div className="text-right text-lg font-bold mt-8">
-              Celkem: {total} Kč
+              Total: {total} CZK
             </div>
 
             <div className="text-center mt-6 space-x-4">
               <button
                 onClick={() => {
                   clearCart();
-                  toast("🧹 Košík vyprázdněn");
+                  toast("🧹 Cart cleared");
                 }}
                 className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition"
               >
-                Vyprázdnit košík
+                Clear cart
               </button>
               <button
                 onClick={handleOrder}
                 className="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
               >
-                Objednat
+                Place order
               </button>
             </div>
           </section>

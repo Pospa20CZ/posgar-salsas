@@ -20,34 +20,34 @@ export default function SauceItem({
   onRemove,
 }: Props) {
   return (
-    <div className="border p-6 rounded shadow hover:shadow-lg transition flex flex-col items-center text-center bg-white">
+    <div className="w-[220px] min-h-[360px] flex flex-col justify-between items-center text-center bg-white border border-gray-200 p-4 rounded-lg shadow-sm hover:shadow-md transition">
       {image && (
         <img
           src={image}
           alt={name}
-          className="w-32 h-32 object-contain mb-4"
+          className="w-24 h-24 object-contain mb-3"
         />
       )}
-      <h2 className="text-xl font-semibold mb-2">{name}</h2>
+      <h2 className="text-base font-semibold mb-1">{name}</h2>
       <p className="text-gray-600 text-sm mb-2">{description}</p>
-      <p className="font-bold text-orange-600 mb-2">Cena: {price} Kč</p>
+      <p className="font-bold text-orange-600 mb-2">Price: {price} CZK</p>
 
       {quantity > 0 && (
         <>
           <p className="mb-2 text-sm text-gray-500">
-            Celkem za typ: <span className="font-semibold">{price * quantity} Kč</span>
+            Total for type: <span className="font-semibold">{price * quantity} CZK</span>
           </p>
-          <div className="flex items-center justify-center gap-4 mt-2">
+          <div className="flex items-center justify-center gap-2 mt-2">
             <button
               onClick={onRemove}
-              className="px-3 py-1 bg-red-100 rounded hover:bg-red-200"
+              className="px-2 py-1 bg-red-100 rounded hover:bg-red-200 text-sm"
             >
               −
             </button>
-            <span className="font-bold">{quantity} ks</span>
+            <span className="font-bold text-sm">{quantity} pcs</span>
             <button
               onClick={onAdd}
-              className="px-3 py-1 bg-green-100 rounded hover:bg-green-200"
+              className="px-2 py-1 bg-green-100 rounded hover:bg-green-200 text-sm"
             >
               +
             </button>
@@ -58,9 +58,9 @@ export default function SauceItem({
       {quantity === 0 && onAdd && (
         <button
           onClick={onAdd}
-          className="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition"
+          className="mt-4 px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition text-sm"
         >
-          Přidat do košíku
+          Add to cart
         </button>
       )}
     </div>
