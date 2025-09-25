@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Navbar from "@/app/components/Navbar";
+import SauceItem from "@/app/components/SauceItem";
 import { useCartStore } from "@/lib/store";
 import { sauces } from "@/lib/products";
 import toast from "react-hot-toast";
@@ -40,7 +41,8 @@ export default function CartPage() {
     .map((id) => sauces.find((sauce) => sauce.id === id))
     .filter(Boolean) as Sauce[];
 
-  const total = cartItems.reduce((sum, item) => sum + (item?.price || 0), 0);
+  const groupedItems = groupCartItems(cartItems);
+  const total = groupedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleOrder = () => {
     toast.success("📦 Objednávka odeslána");
@@ -54,41 +56,27 @@ export default function CartPage() {
       <main className="p-8">
         <h1 className="text-3xl font-bold mb-6 text-center">🛒 Košík</h1>
 
-        {cartItems.length === 0 ? (
+        {groupedItems.length === 0 ? (
           <p className="text-center text-gray-500">Košík je prázdný.</p>
         ) : (
           <section className="max-w-2xl mx-auto space-y-6">
-            {groupCartItems(cartItems).map((item) => (
-              <div key={item.id} className="border p-4 rounded shadow">
-                <h2 className="text-xl font-semibold mb-2">{item.name}</h2>
-                <p className="text-gray-600">{item.description}</p>
-                <p className="font-bold mt-2">Cena: {item.price} Kč</p>
-                <p className="mt-2">Celkem za typ: {item.price * item.quantity} Kč</p>
-
-                <div className="flex items-center gap-4 mt-4">
-                  <button
-                    onClick={() => {
-                      removeFromCart(item.id);
-                      toast("❌ Odebráno 1 ks");
-                    }}
-                    className="px-3 py-1 bg-red-100 rounded hover:bg-red-200"
-                  >
-                    −
-                  </button>
-
-                  <span className="font-bold">{item.quantity} ks</span>
-
-                  <button
-                    onClick={() => {
-                      addToCart(item.id);
-                      toast("➕ Přidáno 1 ks");
-                    }}
-                    className="px-3 py-1 bg-green-100 rounded hover:bg-green-200"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
+            {groupedItems.map((item) => (
+              <SauceItem
+                key={item.id}
+                name={item.name}
+                description={item.description}
+                image={item.image}
+                price={item.price}
+                quantity={item.quantity}
+                onAdd={() => {
+                  addToCart(item.id);
+                  toast("➕ Přidáno 1 ks");
+                }}
+                onRemove={() => {
+                  removeFromCart(item.id);
+                  toast("❌ Odebráno 1 ks");
+                }}
+              />
             ))}
 
             <div className="text-right text-lg font-bold mt-8">
